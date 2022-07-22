@@ -207,6 +207,15 @@ RSpec.describe FastIgnore do
           expect(subject.allowed?('a/b', exists: true)).to be false
         end
       end
+
+      context 'with root as "/"' do
+        let(:args) { {root: '/', gitignore: false, ignore_rules: 'a/' } }
+
+        it "#allowed? won't be confused absolute paths" do
+          expect(subject.allowed?('/a', exists: true)).to be true
+          expect(subject.allowed?('/a/b', exists: true)).to be false
+        end
+      end
     end
 
     it 'rescues soft links to nowhere' do

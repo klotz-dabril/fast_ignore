@@ -17,6 +17,7 @@ class FastIgnore
   require_relative 'fast_ignore/matchers/shebang_regexp'
   require_relative 'fast_ignore/gitconfig_parser'
   require_relative 'fast_ignore/path_expander'
+  require_relative 'fast_ignore/relative_path_joiner'
   require_relative 'fast_ignore/candidate'
   require_relative 'fast_ignore/relative_candidate'
   require_relative 'fast_ignore/matchers/within_dir'
@@ -35,7 +36,7 @@ class FastIgnore
   include ::Enumerable
 
   def initialize(relative: false, root: nil, gitignore: :auto, follow_symlinks: false, **rule_group_builder_args)
-    @root = "#{::File.expand_path(root.to_s, Dir.pwd)}/"
+    @root = ::File.expand_path(root.to_s, Dir.pwd)
     @gitignore = gitignore
     @rule_group_builder_args = rule_group_builder_args
     @follow_symlinks = follow_symlinks
