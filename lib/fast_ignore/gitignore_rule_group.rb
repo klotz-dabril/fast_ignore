@@ -11,8 +11,8 @@ class FastIgnore
       super([
         ::FastIgnore::Patterns.new('.git', root: '/'),
         ::FastIgnore::Patterns.new(from_file: ::FastIgnore::GlobalGitignore.path(root: root), root: root),
-        ::FastIgnore::Patterns.new(from_file: "#{root}.git/info/exclude", root: root),
-        ::FastIgnore::Patterns.new(from_file: "#{root}.gitignore", root: root)
+        ::FastIgnore::Patterns.new(from_file: ::File.expand_path(".git/info/exclude", root), root: root),
+        ::FastIgnore::Patterns.new(from_file: ::File.expand_path(".gitignore", root), root: root)
       ], false)
     end
 
